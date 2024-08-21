@@ -15,6 +15,8 @@ import validator from "validator";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PasswordStrength from "./PasswordStrength"; // Assuming PasswordStrength is in the same directory
+import { registerUser } from "@/lib/actions/authActions";
+import { toast } from "react-toastify";
 
 const FormSchema = z
   .object({
@@ -75,7 +77,6 @@ const SignUpForm = () => {
   const [passStrength, setPassStrength] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
-  // A function to calculate password strength
   const calculatePassStrength = (password: string) => {
     if (password.length > 10) return 3;
     if (password.length > 7) return 2;
@@ -85,7 +86,7 @@ const SignUpForm = () => {
 
   useEffect(() => {
     const subscription = watch((value) => {
-      const password = value.password || ""; // Ensure password is a string
+      const password = value.password || "";
       setPassStrength(calculatePassStrength(password));
     });
     return () => subscription.unsubscribe();
@@ -94,7 +95,14 @@ const SignUpForm = () => {
   const toggleVisiblePass = () => setIsVisible((prev) => !prev);
 
   const saveUser: SubmitHandler<FormSchemaType> = async (data) => {
-    console.log({ data });
+    const { accepted, confirmPassword, ...user } = data;
+    try {
+      const result = await registerUser(user);
+      toast.success("User registered successfully");
+    } catch (error) {
+      toast.error("Something went wrong");
+      console.error(error);
+    }
   };
 
   return (

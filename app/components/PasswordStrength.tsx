@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "classnames"; // You can install classnames using npm install classnames
+import classNames from "classnames";
 
 interface Props {
   passStrength: number;
@@ -7,7 +7,7 @@ interface Props {
 
 const PasswordStrength = ({ passStrength }: Props) => {
   return (
-    <div className="flex gap-2 col-span-2">
+    <div className="flex gap-2">
       {Array.from({ length: 4 }).map((_, index) => (
         <div
           key={index}

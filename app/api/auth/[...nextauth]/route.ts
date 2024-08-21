@@ -4,6 +4,7 @@ import * as bcrypt from "bcrypt";
 import prisma from "../../../../lib/prisma";
 import NextAuth, { AuthOptions } from "next-auth";
 import { NextApiHandler } from "next";
+import { User } from "@prisma/client";
 
 interface Credentials {
   username: string;
@@ -11,6 +12,9 @@ interface Credentials {
 }
 
 export const authOptions: AuthOptions = {
+  pages: {
+    signIn: "/auth/signin",
+  },
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -51,6 +55,17 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) token.user = user as User;
+      return token;
+    },
+    async session({ session, token }) {
+      session.user = token.user;
+      return session;
+    },
+  },
 };
 
 const handler: NextApiHandler = (req, res) => NextAuth(req, res, authOptions);
