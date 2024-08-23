@@ -45,19 +45,19 @@ const SignInForm = (props: Props) => {
       toast.error(result?.error);
       return;
     }
-    toast.success("welcome to sampath vishwa ");
-    router.push(props.callbackUrl ? props.callbackUrl : "/");
+    toast.success(`welcome ${data.email}`);
+    router.push(props.callbackUrl ? props.callbackUrl : "/dashboard");
   };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-2 border rounded-md shadow overflow-hidden w-full"
+      className="flex flex-col gap-2 border rounded-md shadow overflow-hidden w-96 h-96 m-6 rounded bg-blue "
     >
-      <div className="bg-gradient-to-b from-white to-slate-200 dark:from-slate-700 dark:to-slate-900 p-2 text-center">
+      <div className="bg-gradient-to-b from-white to-slate-400 dark:from-slate-200 dark:to-slate-600 p-2 text-center">
         Sign In Form
       </div>
-      <div className="p-2 flex flex-col gap-2">
+      <div className="p-4 flex flex-col gap-4 ">
         <Input
           label="Email"
           {...register("email")}
@@ -81,7 +81,7 @@ const SignInForm = (props: Props) => {
             </button>
           }
         />
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center justify-center gap-2 ">
           <Button
             color="primary"
             type="submit"
