@@ -1,6 +1,13 @@
 "use client";
 
-import { Button, Checkbox, Input, Link } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  Checkbox,
+  Input,
+  Link,
+} from "@nextui-org/react";
 import {
   EnvelopeIcon,
   EyeIcon,
@@ -120,99 +127,129 @@ const SignUpForm = () => {
   const router = useRouter();
 
   return (
-    <form onSubmit={handleSubmit(saveUser)}>
-      <div className="bg-gradient-to-b from-white to-slate-400 dark:from-slate-200 dark:to-slate-600 p-2 text-center rounded h-12 text-2xl ">
-        <h1>Sign Up</h1>
-      </div>
-      <div className="grid grid-cols-2 gap-2 p-3 place-self-stretch shadow border rounded-md bg-black">
-        <Input
-          errorMessage={errors?.firstName?.message}
-          isInvalid={!!errors?.firstName}
-          {...register("firstName")}
-          label="First Name"
-          startContent={<UserIcon className="w-6 " />}
-        />
-        <Input
-          errorMessage={errors?.lastName?.message}
-          isInvalid={!!errors?.lastName}
-          {...register("lastName")}
-          label="Last Name"
-          startContent={<UserIcon className="w-6 " />}
-        />
-        <Input
-          errorMessage={errors?.email?.message}
-          isInvalid={!!errors?.email}
-          {...register("email")}
-          className="col-span-2"
-          label="Email"
-          startContent={<EnvelopeIcon className="w-6 " />}
-        />
-        <Input
-          errorMessage={errors?.phone?.message}
-          isInvalid={!!errors?.phone}
-          {...register("phone")}
-          className="col-span-2"
-          label="Phone"
-          startContent={<PhoneIcon className="w-6 " />}
-        />
-        <Input
-          errorMessage={errors?.password?.message}
-          isInvalid={!!errors?.password}
-          {...register("password")}
-          className="col-span-2"
-          label="Password"
-          type={isVisible ? "text" : "password"}
-          startContent={<KeyIcon className="w-6 " />}
-          endContent={
-            isVisible ? (
-              <EyeSlashIcon
-                className="w-6 cursor-pointer"
-                onClick={toggleVisiblePass}
-              />
-            ) : (
-              <EyeIcon
-                className="w-6 cursor-pointer"
-                onClick={toggleVisiblePass}
-              />
-            )
-          }
-        />
-        <PasswordStrength passStrength={passStrength} />
-        <Input
-          errorMessage={errors?.confirmPassword?.message}
-          isInvalid={!!errors?.confirmPassword}
-          {...register("confirmPassword")}
-          className="col-span-2"
-          label="Confirm Password"
-          type={isVisible ? "text" : "password"}
-          startContent={<KeyIcon className="w-6 " />}
-        />
-        <Controller
-          control={control}
-          name="accepted"
-          render={({ field }) => (
-            <Checkbox
-              onChange={field.onChange}
-              onBlur={field.onBlur}
+    <Card className="p-3">
+      <CardBody>
+        <form onSubmit={handleSubmit(saveUser)}>
+          <div className=" p-2 text-center rounded h-12  place-self-stretch shadow border rounded-md ">
+            <h1>Sign Up Your Account</h1>
+          </div>
+          <div className="grid grid-cols-2 gap-2 p-2 text-black">
+            <Input
+              errorMessage={errors?.firstName?.message}
+              isInvalid={!!errors?.firstName}
+              {...register("firstName")}
+              // label="First Name"
+              placeholder="First Name"
+              startContent={<UserIcon className="w-6 " />}
+              labelPlacement="outside"
+              classNames={{
+                inputWrapper: "border-none",
+                input: "border-none bg-offwhite",
+              }}
+            />
+            <Input
+              errorMessage={errors?.lastName?.message}
+              isInvalid={!!errors?.lastName}
+              {...register("lastName")}
+              placeholder="Last Name"
+              startContent={<UserIcon className="w-6 " />}
+              classNames={{
+                inputWrapper: "border-none",
+                input: "border-none bg-offwhite",
+              }}
+            />
+            <Input
+              errorMessage={errors?.email?.message}
+              isInvalid={!!errors?.email}
+              {...register("email")}
               className="col-span-2"
-            >
-              I agree to the <Link href="/terms">Terms</Link> and{" "}
-              <Link href="/conditions">Conditions</Link>
-            </Checkbox>
-          )}
-        />
-        {errors?.accepted && <p>{errors?.accepted?.message}</p>}
-        <div className="md:col-span-1 flex justify-center items-center">
-          <p className="text-center p-2 text-white ">Already Signed up?</p>
-          <Link href={"/auth/signin"}>Sign In</Link>
-        </div>
-        <div className="flex justify-center col-span-2 ">
-          <Button className="w-48" color="primary" type="submit">
-            Submit
-          </Button>
-        </div>
-      </div>
-    </form>
+              placeholder="Email"
+              startContent={<EnvelopeIcon className="w-6 " />}
+              classNames={{
+                inputWrapper: "border-none",
+                input: "border-none bg-offwhite",
+              }}
+            />
+            <Input
+              errorMessage={errors?.phone?.message}
+              isInvalid={!!errors?.phone}
+              {...register("phone")}
+              className="col-span-2"
+              placeholder="Phone"
+              startContent={<PhoneIcon className="w-6 " />}
+              classNames={{
+                inputWrapper: "border-none",
+                input: "border-none bg-offwhite",
+              }}
+            />
+            <Input
+              errorMessage={errors?.password?.message}
+              isInvalid={!!errors?.password}
+              {...register("password")}
+              className="col-span-2"
+              placeholder="Password"
+              type={isVisible ? "text" : "password"}
+              startContent={<KeyIcon className="w-6 " />}
+              classNames={{
+                inputWrapper: "border-none",
+                input: "border-none bg-offwhite",
+              }}
+              endContent={
+                isVisible ? (
+                  <EyeSlashIcon
+                    className="w-6 cursor-pointer"
+                    onClick={toggleVisiblePass}
+                  />
+                ) : (
+                  <EyeIcon
+                    className="w-6 cursor-pointer"
+                    onClick={toggleVisiblePass}
+                  />
+                )
+              }
+            />
+            <PasswordStrength passStrength={passStrength} />
+            <Input
+              errorMessage={errors?.confirmPassword?.message}
+              isInvalid={!!errors?.confirmPassword}
+              {...register("confirmPassword")}
+              className="col-span-2"
+              placeholder="Confirm Password"
+              type={isVisible ? "text" : "password"}
+              startContent={<KeyIcon className="w-6 " />}
+              classNames={{
+                inputWrapper: "border-none",
+                input: "border-none bg-offwhite",
+              }}
+            />
+            <Controller
+              control={control}
+              name="accepted"
+              render={({ field }) => (
+                <Checkbox
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  className="col-span-2"
+                >
+                  I agree to the <Link href="/terms">Terms</Link> and{" "}
+                  <Link href="/conditions">Conditions</Link>
+                </Checkbox>
+              )}
+            />
+            {errors?.accepted && <p>{errors?.accepted?.message}</p>}
+            <div className="md:col-span-1 flex justify-center items-center">
+              <p className="text-center p-2 text-black ">Already Signed up?</p>
+              <Link href={"/auth/signin"}>Sign In</Link>
+            </div>
+            <div className="flex justify-center col-span-2 ">
+              <Button className="w-48" color="primary" type="submit">
+                Submit
+              </Button>
+            </div>
+          </div>
+        </form>
+      </CardBody>
+    </Card>
   );
 };
 

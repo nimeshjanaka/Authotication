@@ -1,7 +1,7 @@
 "use client";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Card, CardBody, Input } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
 
 import Link from "next/link";
@@ -50,52 +50,64 @@ const SignInForm = (props: Props) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-2 border rounded-md shadow overflow-hidden w-96 h-96 m-6 rounded bg-blue "
-    >
-      <div className="bg-gradient-to-b from-white to-slate-400 dark:from-slate-200 dark:to-slate-600 p-2 text-center">
-        Sign In Form
-      </div>
-      <div className="p-4 flex flex-col gap-4 ">
-        <Input
-          label="Email"
-          {...register("email")}
-          errorMessage={errors.email?.message}
-        />
-        <Input
-          label="Password"
-          {...register("password")}
-          type={visiblePass ? "text" : "password"}
-          errorMessage={errors.password?.message}
-          endContent={
-            <button
-              type="button"
-              onClick={() => setVisiblePass((prev) => !prev)}
-            >
-              {visiblePass ? (
-                <EyeSlashIcon className="w-4" />
-              ) : (
-                <EyeIcon className="w-4" />
-              )}
-            </button>
-          }
-        />
-        <div className="flex items-center justify-center gap-2 ">
-          <Button
-            color="primary"
-            type="submit"
-            disabled={isSubmitting}
-            isLoading={isSubmitting}
-          >
-            {isSubmitting ? "Signing In..." : "Sign In"}
-          </Button>
-          <Button as={Link} href="/auth/signup">
-            Sign Up
-          </Button>
-        </div>
-      </div>
-    </form>
+    <Card>
+      <CardBody>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-2 border rounded-md shadow overflow-hidden w-96 h-84 m-6 rounded bg-blue mt-8 justify-center "
+        >
+          <div className=" p-2 text-center rounded h-12  place-self-stretch shadow border rounded-md">
+            Sign In Form
+          </div>
+          <div className="p-4 flex flex-col gap-4 ">
+            <Input
+              placeholder="Email"
+              {...register("email")}
+              errorMessage={errors.email?.message}
+              classNames={{
+                inputWrapper: "border-none",
+                input: "border-none bg-offwhite",
+              }}
+            />
+            <Input
+              classNames={{
+                inputWrapper: "border-none",
+                input: "border-none bg-offwhite",
+              }}
+              placeholder="Password"
+              {...register("password")}
+              type={visiblePass ? "text" : "password"}
+              errorMessage={errors.password?.message}
+              endContent={
+                <button
+                  type="button"
+                  onClick={() => setVisiblePass((prev) => !prev)}
+                >
+                  {visiblePass ? (
+                    <EyeSlashIcon className="w-4" />
+                  ) : (
+                    <EyeIcon className="w-4" />
+                  )}
+                </button>
+              }
+            />
+            <div className="flex items-center justify-center gap-2 ">
+              <Button
+                color="primary"
+                type="submit"
+                disabled={isSubmitting}
+                isLoading={isSubmitting}
+              >
+                {isSubmitting ? "Signing In..." : "Sign In"}
+              </Button>
+              <Button as={Link} href="/auth/signup">
+                Sign Up
+              </Button>
+            </div>
+          </div>
+        </form>
+      </CardBody>
+    </Card>
   );
 };
 
