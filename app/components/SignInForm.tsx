@@ -91,6 +91,7 @@ const SignInForm = (props: Props) => {
                 </button>
               }
             />
+            <Link href={"/auth/forgotPassword"}>Forgot Your Password?</Link>
             <div className="flex items-center justify-center gap-2 ">
               <Button
                 color="primary"
