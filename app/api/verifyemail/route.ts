@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma"; // Ensure you have a prisma client instance exported from some module
-
+import { prisma } from "@/lib/prisma";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const token = searchParams.get("token");
@@ -13,7 +12,6 @@ export async function GET(request: Request) {
   }
 
   try {
-    // Fetch the user associated with the verification token
     const verification = await prisma.emailVerification.findFirst({
       where: { token: token },
       select: { userId: true },
@@ -25,7 +23,6 @@ export async function GET(request: Request) {
 
     const userId = verification.userId;
 
-    // Update the user's verification status
     await prisma.user.update({
       where: { id: userId },
       data: { emailVerified: true },
