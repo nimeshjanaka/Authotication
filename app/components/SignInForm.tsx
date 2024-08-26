@@ -50,7 +50,7 @@ const SignInForm = (props: Props) => {
   };
 
   return (
-    <Card>
+    <Card className="p-3 mt-16">
       <CardBody>
         <form
           onSubmit={handleSubmit(onSubmit)}

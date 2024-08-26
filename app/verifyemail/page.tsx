@@ -4,6 +4,7 @@ import { Button, Card, CardBody } from "@nextui-org/react";
 import React from "react";
 import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const page = () => {
   const searchParams = useSearchParams();
@@ -16,7 +17,7 @@ const page = () => {
       const data = await response.json();
       if (response.ok) {
         toast("Email verified successfully!");
-        router.push("/dashboard");
+        router.push("/auth/signin");
       } else {
         toast.error("Failed to verify email.");
       }

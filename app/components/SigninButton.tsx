@@ -2,10 +2,15 @@
 
 import { Button } from "@nextui-org/react";
 import { signIn, useSession } from "next-auth/react";
+// import { redirect } from "next/navigation";
 import Link from "next/link";
 
 const SigninButton = () => {
   const { data: session } = useSession();
+
+  // if (session) {
+  //   redirect("/dashboard");
+  // }
 
   return (
     <div className="flex items-center gap-2">
